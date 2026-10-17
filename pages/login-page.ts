@@ -10,7 +10,7 @@ export class LoginPage {
     this.emailInput = page.getByRole('textbox', { name: 'Email address' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password' });
     this.loginButton = page.getByRole('button', { name: 'Login' });
-    this.errorMessage = page.getByText('Invalid email or password');
+    this.errorMessage = page.locator('[data-test="login-error"]');
   }
 
   async goto() {
