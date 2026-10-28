@@ -1,9 +1,6 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login-page';
+import { test, expect } from '../fixtures';
 
-test('customer can log in with valid credentials', { tag: '@smoke' }, async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
+test('customer can log in with valid credentials', { tag: '@smoke' }, async ({ page, loginPage }) => {
   await loginPage.login('customer3@practicesoftwaretesting.com', 'pass123');
 
   await expect(page).toHaveURL('/account');
@@ -12,9 +9,7 @@ test('customer can log in with valid credentials', { tag: '@smoke' }, async ({ p
 
 // Uses its own account: failed logins can lock an account, and that must never
 // break the smoke test above.
-test('login fails with a wrong password', { tag: '@regression' }, async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
+test('login fails with a wrong password', { tag: '@regression' }, async ({ page, loginPage }) => {
   await loginPage.login('customer2@practicesoftwaretesting.com', 'wrong-password');
 
   // "Invalid email or password" or "Account locked": either way the user is not let in.
